@@ -26,70 +26,62 @@ namespace SI_Lab_03
 
             while (!GameEnd)
             {
-                bool P1success = false;
+                int P1Move = GetPlayerMovement(Player1, board);
+                board = ChangeBoard(board, P1Move, P1);
 
-                while (!P1success)
-                {
-                    int P1Move = Player1.Move(board);
-                    (int[,] newBoard, bool successRet) = ChangeBoard(board, P1Move, P1);
-                    P1success = successRet;
-                    if (P1success)
-                    {
-                        board = newBoard;
-                    }
-                }
-
-                bool P2success = false;
-
-                while (!P2success)
-                {
-                    int P2Move = Player2.Move(board);
-                    (int[,] newBoard, bool successRet) = ChangeBoard(board, P2Move, P2);
-                    P2success = successRet;
-                    if (P2success)
-                    {
-                        board = newBoard;
-                    }
-                }
-
+                int P2Move = GetPlayerMovement(Player2, board);
+                board = ChangeBoard(board, P2Move, P2);
             }
-
-
         }
 
-        private (int[,] board, bool success) ChangeBoard(int[,] board, int col, int player)
+
+        //zwraca legalny ruch gracza
+        private int GetPlayerMovement(IPlayer player, int[,] board)
+        {
+            bool success = false;
+            int move = -1;
+
+            while (!success)
+            {
+                move = player.Move(board);
+                success = ValidateMove(move, board);
+                if (!success)
+                {
+                    Console.WriteLine("Ruch nielegalny! Podaj nowy wybór");
+                }
+            }
+
+            return move;
+        }
+
+        //walidacja ruchu gracza
+        private bool ValidateMove(int move, int[,] board)
+        {
+            return (board[0, move] != 0) ? false : true;
+        }
+
+        //umieszczenie poprawnego ruchu na planszy
+        private int[,] ChangeBoard(int[,] board, int col, int player)
         {
             int[,] newBoard = Utils.CopyArray(board);
 
             bool changed = false;
-            bool success = false;
-            int row = 5;
+            int row = board.GetLength(0)-1;
             while (!changed)
             {
-                if(board[row, col] == 0)
+                if (board[row, col] == 0)
                 {
                     newBoard[row, col] = player;
                     changed = true;
-                    success = true;
                 }
                 else
-                {
-                    if(row-1 < 0)
-                    {
-                        changed = true;
-                    }
-                    else
-                    {
-                        row -= 1;
-                    }
+                { 
+                    row -= 1;
                 }
             }
 
-            return (newBoard, success);
-
+            return newBoard;
         }
-
-        
 
     }
 }

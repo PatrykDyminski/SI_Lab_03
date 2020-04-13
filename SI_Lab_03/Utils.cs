@@ -17,7 +17,15 @@ namespace SI_Lab_03
 
                 for (int j = 0; j < board.GetLength(1); j++)
                 {
-                    Console.Write(board[i,j] + " | ");
+                    if(board[i,j] == 0)
+                    {
+                        Console.Write("  | ");
+                    }
+                    else
+                    {
+                        Console.Write(board[i, j] + " | ");
+                    }
+                    
                 }
 
                 Console.WriteLine();

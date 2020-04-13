@@ -6,7 +6,6 @@ namespace SI_Lab_03
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Game!");
 
             int[,] arr = new int[6, 7]
             {
@@ -18,7 +17,6 @@ namespace SI_Lab_03
                 { 1,2,3,4,5,6,7 }
             };
 
-            //Utils.PrintBoard(arr);
 
             PlayerHuman human = new PlayerHuman();
             PlayerHuman human2 = new PlayerHuman();
@@ -26,11 +24,6 @@ namespace SI_Lab_03
             Game gra = new Game(human, human2);
 
             gra.Play();
-
-
-            //int move = human.Move(arr);
-
-            //Console.WriteLine(move);
 
 
         }
