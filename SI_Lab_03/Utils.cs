@@ -9,7 +9,7 @@ namespace SI_Lab_03
         public static void PrintBoard(int[,] board)
         {
             Console.WriteLine(". 1 . 2 . 3 . 4 . 5 . 6 . 7 .");
-            Console.WriteLine(". - . - . - . - . - . - . - .");
+            Console.WriteLine(". _ . _ . _ . _ . _ . _ . _ .");
 
             for (int i = 0; i < board.GetLength(0); i++)
             {
@@ -29,7 +29,7 @@ namespace SI_Lab_03
                 }
 
                 Console.WriteLine();
-                Console.WriteLine(". - . - . - . - . - . - . - ."); 
+                Console.WriteLine(". _ . _ . _ . _ . _ . _ . _ ."); 
             }
 
             
