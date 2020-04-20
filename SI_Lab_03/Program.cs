@@ -9,21 +9,25 @@ namespace SI_Lab_03
 
             int[,] arr = new int[6, 7]
             {
-                { 1,2,3,4,5,6,7 },
-                { 1,2,3,4,5,6,7 },
-                { 1,2,3,4,5,6,7 },
-                { 1,2,3,4,5,6,7 },
-                { 1,2,3,4,5,6,7 },
-                { 1,2,3,4,5,6,7 }
+                { 0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,0 },
+                { 0,0,0,0,0,0,2 },
+                { 0,0,0,1,1,1,2 }
             };
 
 
             PlayerHuman human = new PlayerHuman();
             PlayerHuman human2 = new PlayerHuman();
+            PlayerAI ai = new PlayerAI(2);
 
-            Game gra = new Game(human, human2);
+            var res = ai.Move(arr);
 
-            gra.Play();
+            Console.WriteLine(res);
+
+            //Game gra = new Game(human, ai);
+            //gra.Play();
 
 
         }
