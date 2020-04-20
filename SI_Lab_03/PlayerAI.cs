@@ -41,6 +41,11 @@ namespace SI_Lab_03
         {
             if (Utils.CheckWin(board, Player))
             {
+                if(Utils.CheckWin(board, Utils.OtherPlayer(Player)))
+                {
+                    return -1;
+                }
+
                 return 1;
             }
             else if(Utils.CheckWin(board, Utils.OtherPlayer(Player)))
