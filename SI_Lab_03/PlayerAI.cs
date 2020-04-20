@@ -8,21 +8,18 @@ namespace SI_Lab_03
     class PlayerAI : IPlayer
     {
         private int Player { get; }
+        private int Depth { get; }
 
-        public PlayerAI(int player)
+        public PlayerAI(int player, int depth)
         {
             Player = player;
+            Depth = depth;
         }
 
         public int Move(int[,] board)
         {
-            //Random rnd = new Random();
-            //return rnd.Next(7);
-
-            var depth = 2;
-
-            var ret = MiniMax(board, Player, -1, depth, false, true);
-            return ret.move;
+            var ret = MiniMax(board, Player, -1, Depth, false, true);
+            return ret;
         }
 
         private List<int> GetValidMoves(int[,] board)
@@ -40,13 +37,13 @@ namespace SI_Lab_03
             return moves;
         }
 
-        private int ScoreBoard(int[,] board, int player)
+        private int ScoreBoard(int[,] board)
         {
-            if (Utils.CheckWin(board, player))
+            if (Utils.CheckWin(board, Player))
             {
                 return 1;
             }
-            else if(Utils.CheckWin(board, Utils.OtherPlayer(player)))
+            else if(Utils.CheckWin(board, Utils.OtherPlayer(Player)))
             {
                 return -1;
             }
@@ -56,17 +53,15 @@ namespace SI_Lab_03
             }
         }
 
-        private (int move, int score) MiniMax(int[,] board, int nextPlayer, int move, int depth, bool mini, bool init)
+        private int MiniMax(int[,] board, int nextPlayer, int move, int depth, bool mini, bool init)
         {
             if (depth == 0)
             {
-                var score = ScoreBoard(board, Player);
+                var score = ScoreBoard(board);
                 //Console.WriteLine(score);
                 //Utils.PrintBoard(board);
-                return (move, score);
+                return score;
             }
-
-            //Console.WriteLine(depth);
 
             List<int> moves = GetValidMoves(board);
 
@@ -82,25 +77,25 @@ namespace SI_Lab_03
                 bool nextMiniOrMax = !mini;
 
                 var result = MiniMax(newBoard, Utils.OtherPlayer(nextPlayer), moves[i], newDepth, nextMiniOrMax, false);
-                results.Add(moves[i], result.score);
+                results.Add(moves[i], result);
             }
 
             if (init)
             {
                 int maxValue = results.Values.Max();
                 var result = results.FirstOrDefault(x => x.Value == maxValue);
-                return (result.Key, result.Value);
+                return result.Key;
             }
 
             if (mini)
             {
                 int minValue = results.Values.Min();
-                return (move, minValue);
+                return minValue;
             }
             else
             {
                 int maxValue = results.Values.Max();
-                return (move, maxValue);
+                return maxValue;
             }
         }
     }

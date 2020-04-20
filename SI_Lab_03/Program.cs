@@ -12,22 +12,22 @@ namespace SI_Lab_03
                 { 0,0,0,0,0,0,0 },
                 { 0,0,0,0,0,0,0 },
                 { 0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,2 },
-                { 0,0,0,1,1,1,2 }
+                { 0,0,0,1,1,0,0 },
+                { 0,0,1,1,1,2,2 },
+                { 0,0,1,2,1,1,2 }
             };
 
 
             PlayerHuman human = new PlayerHuman();
             PlayerHuman human2 = new PlayerHuman();
-            PlayerAI ai = new PlayerAI(2);
+            PlayerAI ai = new PlayerAI(2,6);
 
-            var res = ai.Move(arr);
+            //var res = ai.Move(arr);
 
-            Console.WriteLine(res);
+            //Console.WriteLine(res);
 
-            //Game gra = new Game(human, ai);
-            //gra.Play();
+            Game gra = new Game(human, ai);
+            gra.Play();
 
 
         }
