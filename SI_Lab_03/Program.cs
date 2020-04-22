@@ -20,13 +20,14 @@ namespace SI_Lab_03
 
             PlayerHuman human = new PlayerHuman();
             PlayerHuman human2 = new PlayerHuman();
-            PlayerAI ai = new PlayerAI(2,6);
+            PlayerAI ai = new PlayerAI(1, 5);
+            PlayerAI ai2 = new PlayerAI(2, 5);
 
             //var res = ai.Move(arr);
 
             //Console.WriteLine(res);
 
-            Game gra = new Game(human, ai);
+            Game gra = new Game(ai, ai2);
             gra.Play();
 
 

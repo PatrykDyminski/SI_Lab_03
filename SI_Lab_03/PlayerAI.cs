@@ -10,6 +10,8 @@ namespace SI_Lab_03
         private int Player { get; }
         private int Depth { get; }
 
+        private bool FirstMoveMade = false;
+
         public PlayerAI(int player, int depth)
         {
             Player = player;
@@ -18,8 +20,46 @@ namespace SI_Lab_03
 
         public int Move(int[,] board)
         {
-            var ret = MiniMax(board, Player, -1, Depth, false, true);
-            return ret;
+            if (CheckIfFirstMove(board))
+            {
+                return 5;
+            }
+            else
+            {
+                var ret = MiniMax(board, Player, Depth, false, true);
+                return ret;
+            }
+
+        }
+
+        private bool CheckIfFirstMove(int[,] board)
+        {
+            if (!FirstMoveMade)
+            {
+                Console.WriteLine("sprawdzam pierwszy ruch");
+
+                int ix = board.GetLength(1);
+                int iy = board.GetLength(0) - 1;
+
+                for (int i = 0; i < ix; i++)
+                {
+                    if(board[iy, i] != 0)
+                    {
+                        FirstMoveMade = true;
+                        return false;
+                    }
+                }
+
+                FirstMoveMade = true;
+                return true;
+            }
+            else
+            {
+                FirstMoveMade = true;
+                return false;
+            }
+
+
         }
 
         private List<int> GetValidMoves(int[,] board)
@@ -39,18 +79,14 @@ namespace SI_Lab_03
 
         private int ScoreBoard(int[,] board)
         {
-            if (Utils.CheckWin(board, Player))
-            {
-                if(Utils.CheckWin(board, Utils.OtherPlayer(Player)))
-                {
-                    return -1;
-                }
-
-                return 1;
-            }
-            else if(Utils.CheckWin(board, Utils.OtherPlayer(Player)))
+            
+            if(Utils.CheckWin(board, Utils.OtherPlayer(Player)))
             {
                 return -1;
+            }
+            else if (Utils.CheckWin(board, Player))
+            {
+                return 1;
             }
             else
             {
@@ -58,7 +94,7 @@ namespace SI_Lab_03
             }
         }
 
-        private int MiniMax(int[,] board, int nextPlayer, int move, int depth, bool mini, bool init)
+        private int MiniMax(int[,] board, int nextPlayer, int depth, bool mini, bool init)
         {
             if (depth == 0)
             {
@@ -81,7 +117,7 @@ namespace SI_Lab_03
                 int newDepth = depth - 1;
                 bool nextMiniOrMax = !mini;
 
-                var result = MiniMax(newBoard, Utils.OtherPlayer(nextPlayer), moves[i], newDepth, nextMiniOrMax, false);
+                var result = MiniMax(newBoard, Utils.OtherPlayer(nextPlayer), newDepth, nextMiniOrMax, false);
                 results.Add(moves[i], result);
             }
 

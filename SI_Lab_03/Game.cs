@@ -29,6 +29,8 @@ namespace SI_Lab_03
                 int P1Move = GetPlayerMovement(Player1, board);
                 board = Utils.ChangeBoard(board, P1Move, P1);
 
+                //Utils.PrintBoard(board);
+
                 if(Utils.CheckWin(board, P1))
                 {
                     gameEnd = true;
@@ -39,6 +41,8 @@ namespace SI_Lab_03
 
                 int P2Move = GetPlayerMovement(Player2, board);
                 board = Utils.ChangeBoard(board, P2Move, P2);
+
+                //Utils.PrintBoard(board);
 
                 if (Utils.CheckWin(board, P2))
                 {
