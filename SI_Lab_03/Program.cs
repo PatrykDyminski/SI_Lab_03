@@ -24,7 +24,6 @@ namespace SI_Lab_03
             PlayerAI ai2 = new PlayerAI(2, 5);
 
             //var res = ai.Move(arr);
-
             //Console.WriteLine(res);
 
             Game gra = new Game(ai, ai2);

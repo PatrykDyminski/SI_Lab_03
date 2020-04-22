@@ -75,6 +75,21 @@ namespace SI_Lab_03
             return newBoard;
         }
 
+        public static bool CheckBoardFull(int[,] board)
+        {
+            int ix = board.GetLength(1);
+            
+            for(int i = 0; i < ix; i++)
+            {
+                if(board[0,i] == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public static bool CheckSlice(int[] slice, int player)
         {
             for (int i = 0; i < slice.Length; i++)

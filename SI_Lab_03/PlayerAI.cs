@@ -22,7 +22,7 @@ namespace SI_Lab_03
         {
             if (CheckIfFirstMove(board))
             {
-                return 5;
+                return 4;
             }
             else
             {
@@ -50,6 +50,8 @@ namespace SI_Lab_03
                     }
                 }
 
+                Console.WriteLine("To jest 1 ruch");
+
                 FirstMoveMade = true;
                 return true;
             }
@@ -58,8 +60,6 @@ namespace SI_Lab_03
                 FirstMoveMade = true;
                 return false;
             }
-
-
         }
 
         private List<int> GetValidMoves(int[,] board)
@@ -79,7 +79,6 @@ namespace SI_Lab_03
 
         private int ScoreBoard(int[,] board)
         {
-            
             if(Utils.CheckWin(board, Utils.OtherPlayer(Player)))
             {
                 return -1;
@@ -96,17 +95,11 @@ namespace SI_Lab_03
 
         private int MiniMax(int[,] board, int nextPlayer, int depth, bool mini, bool init)
         {
-            if (depth == 0)
-            {
-                var score = ScoreBoard(board);
-                //Console.WriteLine(score);
-                //Utils.PrintBoard(board);
-                return score;
-            }
+            if (depth == 0) return ScoreBoard(board);
 
             List<int> moves = GetValidMoves(board);
 
-            //Console.WriteLine("Dobrych ruchów: " + moves.Count);
+            if (moves.Count == 0) return ScoreBoard(board);
 
             Dictionary<int, int> results = new Dictionary<int, int>();
 
@@ -114,10 +107,7 @@ namespace SI_Lab_03
             {
                 int[,] newBoard = Utils.ChangeBoard(board, moves[i], nextPlayer);
 
-                int newDepth = depth - 1;
-                bool nextMiniOrMax = !mini;
-
-                var result = MiniMax(newBoard, Utils.OtherPlayer(nextPlayer), newDepth, nextMiniOrMax, false);
+                var result = MiniMax(newBoard, Utils.OtherPlayer(nextPlayer), depth-1, !mini, false);
                 results.Add(moves[i], result);
             }
 
