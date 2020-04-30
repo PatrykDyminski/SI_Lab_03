@@ -1,5 +1,4 @@
 ﻿using SI_Lab_03.ScoringFunctions;
-using System;
 using System.Collections.Generic;
 
 namespace SI_Lab_03.AIPlayers
@@ -24,8 +23,6 @@ namespace SI_Lab_03.AIPlayers
         {
             if (!FirstMoveMade)
             {
-                Console.WriteLine("sprawdzam pierwszy ruch");
-
                 int ix = board.GetLength(1);
                 int iy = board.GetLength(0) - 1;
 
@@ -37,8 +34,6 @@ namespace SI_Lab_03.AIPlayers
                         return false;
                     }
                 }
-
-                Console.WriteLine("To jest 1 ruch");
 
                 FirstMoveMade = true;
                 return true;
