@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SI_Lab_03
 {
@@ -25,7 +23,6 @@ namespace SI_Lab_03
                     {
                         Console.Write(board[i, j] + " | ");
                     }
-                    
                 }
 
                 Console.WriteLine();

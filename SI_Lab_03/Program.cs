@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SI_Lab_03.AIPlayers;
+using SI_Lab_03.ScoringFunctions;
 
 namespace SI_Lab_03
 {
@@ -20,16 +21,17 @@ namespace SI_Lab_03
 
             PlayerHuman human = new PlayerHuman();
             PlayerHuman human2 = new PlayerHuman();
-            PlayerAI ai = new PlayerAI(1, 5);
-            PlayerAI ai2 = new PlayerAI(2, 5);
+
+            NaiveScore sb = new NaiveScore();
+
+            AIPlayer ai = new MiniMaxPlayer(1, 5, sb);
+            AIPlayer ai2 = new MiniMaxPlayer(2, 5, sb);
 
             //var res = ai.Move(arr);
             //Console.WriteLine(res);
 
             Game gra = new Game(ai, ai2);
             gra.Play();
-
-
 
         }
     }
