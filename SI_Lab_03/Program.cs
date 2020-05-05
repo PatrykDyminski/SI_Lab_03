@@ -24,14 +24,19 @@ namespace SI_Lab_03
 
             NaiveScore sb = new NaiveScore();
 
-            AIPlayer ai = new MiniMaxPlayer(1, 5, sb);
-            AIPlayer ai2 = new MiniMaxPlayer(2, 5, sb);
+            AIPlayer ai = new MiniMaxPlayer(1, 5, sb, true);
+            AIPlayer ai2 = new MiniMaxPlayer(2, 5, sb, true);
+
+            AIPlayer ai3 = new AlphaBetaPlayer(1, 10, sb, true);
+            AIPlayer ai4 = new AlphaBetaPlayer(2, 8, sb, true);
 
             //var res = ai.Move(arr);
             //Console.WriteLine(res);
 
-            Game gra = new Game(ai, ai2);
+            Game gra = new Game(ai3, ai4);
             gra.Play();
+
+            ai3.GetAvgTime();
 
         }
     }

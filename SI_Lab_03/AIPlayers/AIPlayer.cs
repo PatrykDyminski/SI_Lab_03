@@ -1,5 +1,7 @@
 ﻿using SI_Lab_03.ScoringFunctions;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SI_Lab_03.AIPlayers
 {
@@ -9,12 +11,18 @@ namespace SI_Lab_03.AIPlayers
         protected int Depth;
         protected bool FirstMoveMade = false;
         protected IScoreBoard Sb;
+        protected bool FirstMoveRandom;
 
-        public AIPlayer(int player, int depth, IScoreBoard sb)
+        protected int movesMade;
+        protected List<TimeSpan> times;
+
+        public AIPlayer(int player, int depth, IScoreBoard sb, bool firstMoveRandom)
         {
             Player = player;
             Depth = depth;
             Sb = sb;
+            FirstMoveRandom = firstMoveRandom;
+            times = new List<TimeSpan>();
         }
 
         public abstract int Move(int[,] board);
@@ -58,6 +66,31 @@ namespace SI_Lab_03.AIPlayers
             }
 
             return moves;
+        }
+
+        protected int GetRandomMove()
+        {
+            Random rnd = new Random();
+            return rnd.Next(6);
+        }
+
+        public TimeSpan GetAvgTime()
+        {
+            double doubleAverageTicks = times.Average(timeSpan => timeSpan.Ticks);
+            long longAverageTicks = Convert.ToInt64(doubleAverageTicks);
+
+            foreach(var time in times)
+            {
+                Console.WriteLine(String.Format("{0:0}:{1:00}:{2:000}", time.Minutes, time.Seconds, time.Milliseconds));
+            }
+
+            var avg = new TimeSpan(longAverageTicks);
+
+            Console.WriteLine("Średio: ");
+            Console.WriteLine(String.Format("{0:0}:{1:00}:{2:000}", avg.Minutes, avg.Seconds, avg.Milliseconds));
+
+
+            return avg;
         }
     }
 }

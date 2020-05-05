@@ -1,29 +1,41 @@
 ﻿using SI_Lab_03.ScoringFunctions;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SI_Lab_03.AIPlayers
 {
     class MiniMaxPlayer : AIPlayer
     {
-        public MiniMaxPlayer(int player, int depth, IScoreBoard sb) : base(player, depth, sb)
+        public MiniMaxPlayer(int player, int depth, IScoreBoard sb, bool firstMoveRandom) : base(player, depth, sb, firstMoveRandom)
         {
             Player = player;
             Depth = depth;
             Sb = sb;
+            FirstMoveRandom = firstMoveRandom;
         }
 
         public override int Move(int[,] board)
         {
-            if (CheckIfFirstMove(board))
+            Stopwatch timer = Stopwatch.StartNew();
+
+            int ret;
+
+            if (CheckIfFirstMove(board) && FirstMoveRandom)
             {
-                return 4;
+                ret = GetRandomMove();
             }
             else
             {
-                var ret = MiniMax(board, Player, Depth, false, true);
-                return ret;
+                ret = MiniMax(board, Player, Depth, false, true);
             }
+
+            timer.Stop();
+            TimeSpan timespan = timer.Elapsed;
+            times.Add(timespan);
+
+            return ret;
         }
 
         private int MiniMax(int[,] board, int nextPlayer, int depth, bool mini, bool init)
