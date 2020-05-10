@@ -13,12 +13,12 @@ namespace SI_Lab_03
 
             int[,] arr = new int[6, 7]
             {
+                { 0,0,1,0,0,0,0 },
                 { 0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,0 },
-                { 0,0,0,1,1,0,0 },
-                { 0,0,1,1,1,2,2 },
-                { 0,0,1,2,1,1,2 }
+                { 1,1,0,0,1,0,0 },
+                { 0,0,0,0,0,1,0 },
+                { 0,0,1,0,0,0,0 },
+                { 0,0,1,0,0,0,0 }
             };
 
 
@@ -43,6 +43,10 @@ namespace SI_Lab_03
 
             RunnerAI();
 
+            //OtherScore os = new OtherScore();
+            //int score = os.Score(arr, 1);
+            //Console.WriteLine(score);
+
         }
 
         static void RunnerAI()
@@ -53,12 +57,15 @@ namespace SI_Lab_03
             PlayerHuman human2 = new PlayerHuman();
 
             NaiveScore sb = new NaiveScore();
+            OtherScore os = new OtherScore();
 
-            AIPlayer ai1 = new MiniMaxPlayer(1, 5, sb, true);
-            AIPlayer ai2 = new MiniMaxPlayer(2, 5, sb, true);
+            IScoreBoard sf = os;
 
-            AIPlayer ai3 = new AlphaBetaPlayer(1, 9, sb, true);
-            AIPlayer ai4 = new AlphaBetaPlayer(2, 9, sb, true);
+            AIPlayer ai1 = new MiniMaxPlayer(1, 5, sf, true);
+            AIPlayer ai2 = new MiniMaxPlayer(2, 5, sf, true);
+
+            AIPlayer ai3 = new AlphaBetaPlayer(1, 6, sf, true);
+            AIPlayer ai4 = new AlphaBetaPlayer(2, 6, sf, true);
 
             var p1 = ai3;
             var p2 = ai4;
@@ -75,7 +82,6 @@ namespace SI_Lab_03
             var p2all = p2.GetAllTimes();
 
             Console.WriteLine(p2avg);
-
 
             var firstL = "";
             var secondL = "";
