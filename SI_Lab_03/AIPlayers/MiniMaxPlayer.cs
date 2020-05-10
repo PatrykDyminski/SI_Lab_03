@@ -14,6 +14,7 @@ namespace SI_Lab_03.AIPlayers
             Depth = depth;
             Sb = sb;
             FirstMoveRandom = firstMoveRandom;
+            times = new List<TimeSpan>();
         }
 
         public override int Move(int[,] board)

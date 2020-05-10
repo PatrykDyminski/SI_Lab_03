@@ -15,6 +15,7 @@ namespace SI_Lab_03.AIPlayers
             Depth = depth;
             Sb = sb;
             FirstMoveRandom = firstMoveRandom;
+            times = new List<TimeSpan>();
         }
 
         public override int Move(int[,] board)
@@ -37,6 +38,7 @@ namespace SI_Lab_03.AIPlayers
 
             timer.Stop();
             TimeSpan timespan = timer.Elapsed;
+            timer.Reset();
             times.Add(timespan);
 
             return ret;
@@ -65,22 +67,15 @@ namespace SI_Lab_03.AIPlayers
                 //alphaBeta part
                 if (mini)
                 {
-                    newBeta = result < newBeta ? result : newBeta;
-
-                    if (newBeta <= newAlpha)
-                    {
-                        break;
-                    }
-
+                    newBeta = result < newBeta ? result : newBeta;                 
                 }
                 else
                 {
                     newAlpha = result < newAlpha ? newAlpha : result;
-
-                    if (newBeta <= newAlpha)
-                    {
-                        break;
-                    }
+                }
+                if (newBeta <= newAlpha)
+                {
+                    break;
                 }
             }
 

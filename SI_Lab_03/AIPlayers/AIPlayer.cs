@@ -22,7 +22,7 @@ namespace SI_Lab_03.AIPlayers
             Depth = depth;
             Sb = sb;
             FirstMoveRandom = firstMoveRandom;
-            times = new List<TimeSpan>();
+            //times = new List<TimeSpan>();
         }
 
         public abstract int Move(int[,] board);
@@ -81,16 +81,22 @@ namespace SI_Lab_03.AIPlayers
 
             foreach(var time in times)
             {
-                Console.WriteLine(String.Format("{0:0}:{1:00}:{2:000}", time.Minutes, time.Seconds, time.Milliseconds));
+                //Console.WriteLine(String.Format("{0:0}:{1:00}:{2:000}", time.Minutes, time.Seconds, time.Milliseconds));
             }
+
+            Console.WriteLine();
 
             var avg = new TimeSpan(longAverageTicks);
 
-            Console.WriteLine("Średio: ");
-            Console.WriteLine(String.Format("{0:0}:{1:00}:{2:000}", avg.Minutes, avg.Seconds, avg.Milliseconds));
-
+            //Console.WriteLine("Średio: ");
+            //Console.WriteLine(String.Format("{0:0}:{1:00}:{2:000}", avg.Minutes, avg.Seconds, avg.Milliseconds));
 
             return avg;
+        }
+
+        public List<TimeSpan> GetAllTimes()
+        {
+            return times;
         }
     }
 }
