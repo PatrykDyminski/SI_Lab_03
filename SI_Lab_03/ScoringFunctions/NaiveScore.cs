@@ -2,6 +2,11 @@
 {
     class NaiveScore : IScoreBoard
     {
+        public string GetName()
+        {
+            return "Naive";
+        }
+
         public int Score(int[,] board, int player)
         {
             if (Utils.CheckWin(board, Utils.OtherPlayer(player)))

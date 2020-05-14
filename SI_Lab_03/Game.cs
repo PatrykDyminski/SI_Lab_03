@@ -16,7 +16,7 @@ namespace SI_Lab_03
             Player2 = player2;
         }
 
-        public void Play()
+        public int Play()
         {
             bool gameEnd = false;
 
@@ -27,43 +27,51 @@ namespace SI_Lab_03
                 int P1Move = GetPlayerMovement(Player1, board);
                 board = Utils.ChangeBoard(board, P1Move, P1);
 
-                Utils.PrintBoard(board);
+                //Utils.PrintBoard(board);
 
                 if(Utils.CheckWin(board, P1))
                 {
                     gameEnd = true;
                     Console.WriteLine("Wygrałeś " + P1);
-                    Utils.PrintBoard(board);
-                    break;
+                    //Utils.PrintBoard(board);
+
+                    return P1;
                 }
 
                 if (Utils.CheckBoardFull(board))
                 {
                     gameEnd = true;
                     Console.WriteLine("Remins !!!one one");
-                    Utils.PrintBoard(board);
-                    break;
+                    //Utils.PrintBoard(board);
+
+                    return 0;
                 }
 
                 int P2Move = GetPlayerMovement(Player2, board);
                 board = Utils.ChangeBoard(board, P2Move, P2);
 
-                Utils.PrintBoard(board);
+                //Utils.PrintBoard(board);
 
                 if (Utils.CheckWin(board, P2))
                 {
                     gameEnd = true;
                     Console.WriteLine("Wygrałeś " + P2);
-                    Utils.PrintBoard(board);
+                    //Utils.PrintBoard(board);
+
+                    return P2;
                 }
 
                 if (Utils.CheckBoardFull(board))
                 {
                     gameEnd = true;
                     Console.WriteLine("Remins !!!one one");
-                    Utils.PrintBoard(board);
+                    //Utils.PrintBoard(board);
+
+                    return 0;
                 }
             }
+
+            return -1;
         }
 
         //zwraca legalny ruch gracza

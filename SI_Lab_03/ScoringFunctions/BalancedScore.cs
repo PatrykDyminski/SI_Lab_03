@@ -2,16 +2,16 @@
 
 namespace SI_Lab_03.ScoringFunctions
 {
-    class OtherScore : IScoreBoard
+    class BalancedScore : IScoreBoard
     {
         public string GetName()
         {
-            return "Other";
+            return "Balanced";
         }
+
         //p1
         static Dictionary<string, int> p1row = new Dictionary<string, int>()
         {
-            { "1111", 50000 },
             { "1110", 50 },
             { "0111", 50 },
             { "1101", 50 },
@@ -25,14 +25,12 @@ namespace SI_Lab_03.ScoringFunctions
 
         static Dictionary<string, int> p1col = new Dictionary<string, int>()
         {
-            { "1111", 50000 },
             { "0111", 50 },
             { "011",  5 },
         };
 
         static Dictionary<string, int> p1diag = new Dictionary<string, int>()
         {
-            { "1111", 50000 },
             { "1110", 50 },
             { "0111", 50 },
             { "1101", 50 },
@@ -48,7 +46,6 @@ namespace SI_Lab_03.ScoringFunctions
         //p2
         static Dictionary<string, int> p2row = new Dictionary<string, int>()
         {
-            { "2222", 50000 },
             { "2220", 50 },
             { "0222", 50 },
             { "2202", 50 },
@@ -62,14 +59,12 @@ namespace SI_Lab_03.ScoringFunctions
 
         static Dictionary<string, int> p2col = new Dictionary<string, int>()
         {
-            { "2222", 50000 },
             { "0222", 50 },
             { "022",  5 },
         };
 
         static Dictionary<string, int> p2diag = new Dictionary<string, int>()
         {
-            { "2222", 50000 },
             { "2220", 50 },
             { "0222", 50 },
             { "2202", 50 },
@@ -85,11 +80,22 @@ namespace SI_Lab_03.ScoringFunctions
 
         public int Score(int[,] board, int player)
         {
-            return ScoreHorizontal(board, player) +
+            if (Utils.CheckWin(board, Utils.OtherPlayer(player)))
+            {
+                return -1000000;
+            }
+            else if (Utils.CheckWin(board, player))
+            {
+                return 1000000;
+            }
+            else
+            {
+                return ScoreHorizontal(board, player) +
                     ScoreVertical(board, player) +
                     ScoreDiagonal1(board, player) +
                     ScoreDiagonal2(board, player)
                     ;
+            }
         }
 
         private static int ScoreLine(int[] line, string type, int player)
@@ -102,7 +108,7 @@ namespace SI_Lab_03.ScoringFunctions
 
             if (type.Equals("row"))
             {
-                dict = (player == 1) ? p1row : p2row; 
+                dict = (player == 1) ? p1row : p2row;
             }
             else if (type.Equals("col"))
             {
@@ -113,7 +119,7 @@ namespace SI_Lab_03.ScoringFunctions
                 dict = (player == 1) ? p1diag : p2diag;
             }
 
-            foreach((string key, int value) in dict)
+            foreach ((string key, int value) in dict)
             {
                 if (arrStr.Contains(key))
                 {
@@ -133,7 +139,7 @@ namespace SI_Lab_03.ScoringFunctions
                 int[] row = GetRow(board, i);
 
                 score += ScoreLine(row, "row", player);
-                score -=  (int)(negModifier * ScoreLine(row, "row", Utils.OtherPlayer(player)));
+                score -= (int)(negModifier * ScoreLine(row, "row", Utils.OtherPlayer(player)));
             }
 
             return score;
@@ -168,7 +174,7 @@ namespace SI_Lab_03.ScoringFunctions
                 GetDiagSlice1(board,5,3,4)
             };
 
-            foreach(int[] slice in slices)
+            foreach (int[] slice in slices)
             {
                 score += ScoreLine(slice, "diag", player);
                 score -= (int)(negModifier * ScoreLine(slice, "diag", Utils.OtherPlayer(player)));
@@ -248,3 +254,4 @@ namespace SI_Lab_03.ScoringFunctions
 
     }
 }
+

@@ -2,6 +2,8 @@
 {
     interface IScoreBoard
     {
+        string GetName();
+
         int Score(int[,] board, int player);
     }
 }

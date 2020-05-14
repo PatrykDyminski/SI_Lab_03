@@ -12,8 +12,6 @@ namespace SI_Lab_03.AIPlayers
         protected bool FirstMoveMade = false;
         protected IScoreBoard Sb;
         protected bool FirstMoveRandom;
-
-        protected int movesMade;
         protected List<TimeSpan> times;
 
         public AIPlayer(int player, int depth, IScoreBoard sb, bool firstMoveRandom)
@@ -79,10 +77,10 @@ namespace SI_Lab_03.AIPlayers
             double doubleAverageTicks = times.Average(timeSpan => timeSpan.Ticks);
             long longAverageTicks = Convert.ToInt64(doubleAverageTicks);
 
-            foreach(var time in times)
-            {
-                //Console.WriteLine(String.Format("{0:0}:{1:00}:{2:000}", time.Minutes, time.Seconds, time.Milliseconds));
-            }
+            //foreach (var time in times)
+            //{
+            //    Console.WriteLine(String.Format("{0:0}:{1:00}:{2:000}", time.Minutes, time.Seconds, time.Milliseconds));
+            //}
 
             Console.WriteLine();
 
